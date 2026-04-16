@@ -1,0 +1,30 @@
+{
+    "devices": [
+        {
+            "id": "bedroom_light",
+            "name": "Bedroom Light",
+            "room": "bedroom",
+            "type": "light"
+        },
+        {
+            "id": "hall_light",
+            "name": "Hall Light",
+            "room": "hall",
+            "type": "light"
+        },
+        {
+            "id": "bedroom_fan",
+            "name": "Bedroom Fan",
+            "room": "bedroom",
+            "type": "fan"
+        },
+        {
+            "id": "hall_fan",
+            "name": "Hall Fan",
+            "room": "hall",
+            "type": "fan"
+        }
+    ],
+
+    "_instructions": "Add your Tuya device IDs after setting up SmartLife. Example: add 'tuya_id': 'abc123' to each device."
+}
