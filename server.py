@@ -3,8 +3,11 @@
 import asyncio
 import json
 import uuid
+from pathlib import Path
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Query
 from fastapi.responses import HTMLResponse
+
+BASE_DIR = Path(__file__).parent
 from brain import JarvisBrain
 from tasks import parse_commands, strip_command_tags, get_commands_by_category
 from smart_home import control_device
@@ -12,7 +15,15 @@ from services import get_weather, get_news, get_radio_url
 from config import BOT_NAME, AGENT_TOKEN
 
 app = FastAPI(title=f"{BOT_NAME} AI Assistant")
-brain = JarvisBrain()
+
+# Lazy init — don't crash on startup
+brain: JarvisBrain | None = None
+
+def get_brain() -> JarvisBrain:
+    global brain
+    if brain is None:
+        brain = JarvisBrain()
+    return brain
 
 # ── Desktop Agent state ──
 desktop_agent: WebSocket | None = None
@@ -25,7 +36,7 @@ agent_pending: dict[str, asyncio.Future] = {}
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    with open("templates/index.html", "r") as f:
+    with open(BASE_DIR / "templates" / "index.html", "r") as f:
         return HTMLResponse(content=f.read())
 
 
@@ -53,7 +64,7 @@ async def phone_endpoint(ws: WebSocket):
                 await ws.send_text(json.dumps(response))
 
             elif payload.get("action") == "reset":
-                await asyncio.to_thread(brain.reset_memory)
+                await asyncio.to_thread(get_brain().reset_memory)
                 await ws.send_text(json.dumps({
                     "type": "response", "text": "Memory cleared, sir. Fresh start.", "commands": [],
                 }))
@@ -69,7 +80,7 @@ async def process_command(user_text: str) -> dict:
     """Full pipeline: Gemini → parse → fetch data → smart home → desktop → final response."""
 
     # Step 1: Get initial Gemini response
-    response = await asyncio.to_thread(brain.think, user_text)
+    response = await asyncio.to_thread(get_brain().think, user_text)
     commands = parse_commands(response)
     cats = get_commands_by_category(commands)
     clean_text = strip_command_tags(response)
@@ -94,7 +105,7 @@ async def process_command(user_text: str) -> dict:
         follow_up_text = "Here are the results:\n" + json.dumps(all_results, indent=2, ensure_ascii=False)
         follow_up_text += "\n\nPresent this information to the user naturally and concisely."
 
-        follow_up = await asyncio.to_thread(brain.think, follow_up_text)
+        follow_up = await asyncio.to_thread(get_brain().think, follow_up_text)
         follow_up_commands = parse_commands(follow_up)
         follow_up_cats = get_commands_by_category(follow_up_commands)
 
