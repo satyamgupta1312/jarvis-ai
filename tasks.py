@@ -64,6 +64,20 @@ def parse_commands(response: str) -> list[dict]:
     if "[SYSTEM_INFO]" in response:
         commands.append({"type": "system_info"})
 
+    # ── Code / Project creation ──
+    for match in re.findall(r"\[WRITE_FILE:\s*(.+?)\]", response):
+        commands.append({"type": "write_file", "path": match.strip()})
+
+    for match in re.findall(r"\[RUN:\s*(.+?)\]", response):
+        commands.append({"type": "run_command", "command": match.strip()})
+
+    # Extract code blocks and attach to WRITE_FILE commands
+    code_blocks = re.findall(r"```(?:\w+)?\n(.*?)```", response, re.DOTALL)
+    write_cmds = [c for c in commands if c["type"] == "write_file"]
+    for i, cmd in enumerate(write_cmds):
+        if i < len(code_blocks):
+            cmd["content"] = code_blocks[i]
+
     # ── Office / Slack ──
     for ch in re.findall(r"\[SLACK_READ:\s*(.+?)\]", response):
         commands.append({"type": "slack_read", "channel": ch.strip()})
@@ -106,6 +120,9 @@ def strip_command_tags(text: str) -> str:
         r"\[SLACK_SEARCH:\s*.+?\]",
         r"\[PROJECT_INFO:\s*.+?\]",
         r"\[PENDING_TASKS\]",
+        r"\[WRITE_FILE:\s*.+?\]",
+        r"\[RUN:\s*.+?\]",
+        r"```(?:\w+)?\n.*?```",
     ]
     for p in patterns:
         text = re.sub(p, "", text, flags=re.IGNORECASE)
@@ -114,7 +131,7 @@ def strip_command_tags(text: str) -> str:
 
 # ── Command categorization ──
 
-DESKTOP_TYPES = {"read_file", "list_files", "open_app", "system_info"}
+DESKTOP_TYPES = {"read_file", "list_files", "open_app", "system_info", "write_file", "run_command"}
 DATA_FETCH_TYPES = {"weather", "news", "slack_read", "slack_search", "project_info", "pending_tasks"}
 PHONE_TYPES = {"play_song", "radio", "play_store", "web_search", "open_url", "time", "timer", "reminder"}
 DEVICE_TYPES = {"device"}

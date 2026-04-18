@@ -57,6 +57,15 @@ def handle_command(data: dict) -> dict:
         elif cmd_type == "system_info":
             return get_system_info(request_id)
 
+        elif cmd_type == "write_file":
+            return write_file(request_id, data["path"], data["content"])
+
+        elif cmd_type == "run_command":
+            return run_command(request_id, data["command"], data.get("cwd"))
+
+        elif cmd_type == "create_project":
+            return create_project(request_id, data["name"], data.get("files", {}))
+
         else:
             return {"id": request_id, "status": "error", "error": f"Unknown command: {cmd_type}"}
 
@@ -129,6 +138,81 @@ def open_app(request_id: str, app_name: str) -> dict:
         subprocess.Popen([app_name.lower()], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     return {"id": request_id, "status": "ok", "message": f"Opened {app_name}"}
+
+
+def write_file(request_id: str, path: str, content: str) -> dict:
+    """Write content to a file. Creates parent dirs if needed."""
+    path = os.path.expanduser(path)
+
+    if not is_safe_path(path):
+        return {"id": request_id, "status": "error", "error": "Access denied: sensitive path"}
+
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+
+    with open(path, "w") as f:
+        f.write(content)
+
+    return {
+        "id": request_id,
+        "status": "ok",
+        "message": f"File written: {path}",
+        "path": path,
+        "size": len(content),
+    }
+
+
+def run_command(request_id: str, command: str, cwd: str = None) -> dict:
+    """Run a shell command and return output. Timeout: 60 seconds."""
+    cwd = os.path.expanduser(cwd) if cwd else None
+
+    # Block dangerous commands
+    dangerous = ["rm -rf /", "mkfs", "dd if=", "> /dev/", ":(){ :|:& };:"]
+    if any(d in command for d in dangerous):
+        return {"id": request_id, "status": "error", "error": "Dangerous command blocked"}
+
+    try:
+        result = subprocess.run(
+            command, shell=True, capture_output=True, text=True,
+            timeout=60, cwd=cwd,
+        )
+        output = result.stdout[-5000:] if result.stdout else ""  # Last 5KB
+        error = result.stderr[-2000:] if result.stderr else ""
+
+        return {
+            "id": request_id,
+            "status": "ok" if result.returncode == 0 else "error",
+            "returncode": result.returncode,
+            "stdout": output,
+            "stderr": error,
+        }
+    except subprocess.TimeoutExpired:
+        return {"id": request_id, "status": "error", "error": "Command timed out (60s)"}
+    except Exception as e:
+        return {"id": request_id, "status": "error", "error": str(e)}
+
+
+def create_project(request_id: str, name: str, files: dict) -> dict:
+    """Create a project folder with multiple files.
+    files = {"filename": "content", "subfolder/file.py": "content"}
+    """
+    base = os.path.expanduser(f"~/Desktop/code/{name}")
+    os.makedirs(base, exist_ok=True)
+
+    created = []
+    for filepath, content in files.items():
+        full_path = os.path.join(base, filepath)
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+        with open(full_path, "w") as f:
+            f.write(content)
+        created.append(filepath)
+
+    return {
+        "id": request_id,
+        "status": "ok",
+        "message": f"Project '{name}' created at {base}",
+        "path": base,
+        "files_created": created,
+    }
 
 
 def get_system_info(request_id: str) -> dict:
