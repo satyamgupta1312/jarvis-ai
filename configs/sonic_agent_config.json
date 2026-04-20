@@ -1,0 +1,50 @@
+{
+    "agent_name": "Sonic Agent",
+    "version": "1.0",
+
+    "schedule": {
+        "morning_summary": "09:00",
+        "evening_report": "18:00",
+        "alert_check_interval_hours": 1,
+        "health_check_interval_hours": 3
+    },
+
+    "slack": {
+        "channels_to_monitor": {
+            "product_automation": "C09T03GLXAL"
+        },
+        "alert_keywords": ["satyam", "U04GAFD7N4E", "urgent", "asap"],
+        "alert_window_hours": 4
+    },
+
+    "google_sheets": {
+        "service_account_email": "sonic-bot@widget-474311.iam.gserviceaccount.com",
+        "credentials_path": "credentials/google-service-account.json",
+        "scopes": [
+            "https://www.googleapis.com/auth/spreadsheets",
+            "https://www.googleapis.com/auth/drive"
+        ]
+    },
+
+    "gmail": {
+        "account": "satyam.gupta@apnamart.in",
+        "method": "claude_cli",
+        "check_query": "is:unread"
+    },
+
+    "health_checks": {
+        "render_server": "https://jarvis-ai-wsds.onrender.com/health",
+        "optimus": "https://optimus-app-hazel.vercel.app/api/local/widgets?env=PROD"
+    },
+
+    "groq": {
+        "model": "llama-3.3-70b-versatile",
+        "max_tokens": 300,
+        "use_for": "summarization, sheet analysis"
+    },
+
+    "logging": {
+        "file": "sonic_agent_logs.json",
+        "max_events": 200
+    }
+}
