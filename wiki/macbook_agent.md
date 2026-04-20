@@ -1,7 +1,7 @@
 # MacBook Agent
 
 ## Overview
-MacBook pe run hone wala agent — Jarvis ko file access, code execution, aur system control deta hai.
+MacBook pe run hone wala agent — Sonic ko file access, code execution, aur system control deta hai.
 
 ## Start Agent
 ```bash
@@ -12,7 +12,7 @@ python agent.py wss://your-server.com        # connects to cloud server
 ```
 
 ## Authentication
-- **Token:** `AGENT_TOKEN` (default: `jarvis-secret-2026`)
+- **Token:** `AGENT_TOKEN` (default: `sonic-secret-2026`)
 - WebSocket endpoint: `/ws/agent?token=<token>`
 - Auto-reconnects on disconnect (5s retry)
 

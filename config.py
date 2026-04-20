@@ -55,13 +55,13 @@ SLACK_BOT_TOKEN = os.environ.get("SLACK_BOT_TOKEN", "")
 # ═══════════════════════════════════════════
 # DESKTOP AGENT (runs on MacBook)
 # ═══════════════════════════════════════════
-AGENT_TOKEN = os.environ.get("AGENT_TOKEN", "jarvis-secret-2026")
+AGENT_TOKEN = os.environ.get("AGENT_TOKEN", "sonic-secret-2026")
 
 # ═══════════════════════════════════════════
 # BOT PERSONALITY (system prompt is built dynamically in brain.py)
 # ═══════════════════════════════════════════
-BOT_NAME = "Jarvis"
-WAKE_WORD = "jarvis"
+BOT_NAME = "Sonic"
+WAKE_WORD = "sonic"
 
 # ═══════════════════════════════════════════
 # LOCATION (for weather, news, etc.)

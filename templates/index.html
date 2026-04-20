@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#060a12">
-    <title>J.A.R.V.I.S</title>
+    <title>S.O.N.I.C</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -155,7 +155,7 @@
             border-left: 3px solid #1565c0;
             color: #90caf9;
         }
-        .msg.jarvis {
+        .msg.sonic {
             background: rgba(0, 230, 118, 0.05);
             border-left: 3px solid #1a3a5c;
             color: #b8d4f0;
@@ -168,7 +168,7 @@
             margin-bottom: 3px;
         }
         .msg.user .who { color: #42a5f5; }
-        .msg.jarvis .who { color: #4fc3f7; }
+        .msg.sonic .who { color: #4fc3f7; }
 
         @keyframes slideIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -242,7 +242,7 @@
            Screen goes full black after 15s idle.
            AMOLED screens = pixels off = no battery drain.
            Mic + speaker + WebSocket keep working.
-           Tap or say "Hey Jarvis" to wake the display.
+           Tap or say "Hey Sonic" to wake the display.
         */
         .sleep-overlay {
             position: fixed;
@@ -278,19 +278,19 @@
 
     <!-- One-time start screen (needed to get mic permission) -->
     <div class="start-screen" id="startScreen">
-        <h1>J.A.R.V.I.S</h1>
-        <div class="tagline">WHOLE-HOME AI ASSISTANT</div>
+        <h1>S.O.N.I.C</h1>
+        <div class="tagline">AI VOICE ASSISTANT</div>
         <button class="start-btn" id="startBtn">ACTIVATE</button>
         <div class="start-hint">
             Tap to activate mic access<br>
-            Then just say <strong style="color:#4fc3f7">"Hey Jarvis"</strong>
+            Then just say <strong style="color:#4fc3f7">"Hey Sonic"</strong>
         </div>
     </div>
 
     <!-- Main UI -->
     <div class="header">
-        <h1>J.A.R.V.I.S</h1>
-        <div class="sub">WHOLE-HOME AI ASSISTANT</div>
+        <h1>S.O.N.I.C</h1>
+        <div class="sub">AI VOICE ASSISTANT</div>
     </div>
 
     <div class="orb-wrap">
@@ -302,7 +302,7 @@
 
     <div class="footer">
         <span id="modeLabel" style="float:left; padding:0 8px;">HOME MODE</span>
-        Say "Hey Jarvis" to begin
+        Say "Hey Sonic" to begin
         <span id="voiceToggle" style="float:right; color:#4fc3f7; cursor:pointer; padding:0 8px;">Voice</span>
     </div>
 
@@ -344,7 +344,7 @@
         const feed = document.getElementById('feed');
 
         // ── Config ──
-        const WAKE_WORDS = ['jarvis', 'jarves', 'javis', 'jervis', 'jarwis', 'service'];
+        const WAKE_WORDS = ['sonic', 'sonik', 'hey sonic'];
         const CONVERSATION_TIMEOUT = 10000; // 10 seconds
         const GOODBYE_WORDS = ['thank you', 'thanks', 'goodbye', 'bye', "that's all", 'stop', 'go to sleep', 'never mind'];
         const MODE_SWITCH_TO_OFFICE = ['switch to office', 'office mode', 'office switch', 'office karo', 'office me switch', 'office mode on'];
@@ -398,29 +398,29 @@
 
             if (data.type === 'connected') {
                 const agentStatus = data.agent_online ? 'MacBook connected' : 'MacBook offline';
-                addMessage('jarvis', `${data.bot} online. ${agentStatus}.`);
+                addMessage('sonic', `${data.bot} online. ${agentStatus}.`);
                 return;
             }
 
             if (data.type === 'response') {
                 const text = data.text;
                 if (text) {
-                    addMessage('jarvis', text);
+                    addMessage('sonic', text);
                     speak(text);
                 }
                 // Handle commands from server
                 if (data.commands) {
                     data.commands.forEach(cmd => {
                         if (cmd.type === 'play_song') {
-                            addMessage('jarvis', `Playing: ${cmd.name}`);
+                            addMessage('sonic', `Playing: ${cmd.name}`);
                             window.open(cmd.url, '_blank');
                         } else if (cmd.type === 'radio') {
-                            addMessage('jarvis', `Tuning in: ${cmd.name}`);
+                            addMessage('sonic', `Tuning in: ${cmd.name}`);
                             window.open(cmd.url, '_blank');
                         } else if (cmd.type === 'web_search') {
                             window.open(cmd.url, '_blank');
                         } else if (cmd.type === 'play_store') {
-                            addMessage('jarvis', `Opening Play Store: ${cmd.app}`);
+                            addMessage('sonic', `Opening Play Store: ${cmd.app}`);
                             window.open(cmd.url, '_blank');
                         } else if (cmd.type === 'open_url') {
                             window.open(cmd.url, '_blank');
@@ -508,7 +508,7 @@
 
                 // Extract command after wake word
                 let after = text.substring(wakePos + matchedWord.length).trim();
-                after = after.replace(/^[,.\s]*(hey|hello|hi|okay|ok|please|jarvis)?\s*/i, '').trim();
+                after = after.replace(/^[,.\s]*(hey|hello|hi|okay|ok|please|sonic)?\s*/i, '').trim();
 
                 // Check for mode switch in wake command
                 if (after) {
@@ -567,13 +567,13 @@
                 modeLabel.style.color = '#ffa726';
                 document.querySelector('.header h1').style.color = '#ffa726';
                 speak("Office mode activated, sir. Slack, projects, tasks — sab ready hai.", () => setState('active'));
-                addMessage('jarvis', 'Office mode ON. Slack, projects, pending tasks — sab accessible hai.');
+                addMessage('sonic', 'Office mode ON. Slack, projects, pending tasks — sab accessible hai.');
             } else {
                 modeLabel.textContent = 'HOME MODE';
                 modeLabel.style.color = '#1a2a3a';
                 document.querySelector('.header h1').style.color = '#4fc3f7';
                 speak("Home mode activated, sir.", () => setState('active'));
-                addMessage('jarvis', 'Home mode ON.');
+                addMessage('sonic', 'Home mode ON.');
             }
         }
 
@@ -609,7 +609,7 @@
         pitchRange.addEventListener('input', () => { voicePitch = parseFloat(pitchRange.value); pitchVal.textContent = voicePitch; });
         rateRange.addEventListener('input', () => { voiceRate = parseFloat(rateRange.value); rateVal.textContent = voiceRate; });
         voiceTest.addEventListener('click', () => {
-            const u = new SpeechSynthesisUtterance('All systems operational, sir. Jarvis at your service.');
+            const u = new SpeechSynthesisUtterance('All systems operational, sir. Sonic at your service.');
             u.pitch = voicePitch;
             u.rate = voiceRate;
             if (selectedVoice) u.voice = selectedVoice;
@@ -641,7 +641,7 @@
             const voices = speechSynthesis.getVoices();
             if (!voices.length) return;
 
-            // Priority list for Jarvis-like deep male voice
+            // Priority list for Sonic-like deep male voice
             const preferred = [
                 'Google UK English Male',
                 'Daniel',
@@ -718,7 +718,7 @@
         function addMessage(role, text) {
             const div = document.createElement('div');
             div.className = 'msg ' + role;
-            const who = role === 'jarvis' ? 'Jarvis' : 'You';
+            const who = role === 'sonic' ? 'Sonic' : 'You';
             div.innerHTML = `<div class="who">${who}</div>${escapeHtml(text)}`;
             feed.appendChild(div);
 
@@ -748,30 +748,30 @@
         function startTimer(seconds) {
             const mins = Math.floor(seconds / 60);
             const label = mins > 0 ? `${mins} min` : `${seconds} sec`;
-            addMessage('jarvis', `Timer set: ${label}`);
+            addMessage('sonic', `Timer set: ${label}`);
 
             setTimeout(() => {
                 const msg = `Timer done! ${label} are up, sir.`;
-                addMessage('jarvis', msg);
+                addMessage('sonic', msg);
                 speak(msg);
                 playAlarm();
                 // Browser notification
                 if (Notification.permission === 'granted') {
-                    new Notification('Jarvis Timer', { body: msg });
+                    new Notification('Sonic Timer', { body: msg });
                 }
             }, seconds * 1000);
         }
 
         function startReminder(minutes, text) {
-            addMessage('jarvis', `Reminder set: "${text}" in ${minutes} min`);
+            addMessage('sonic', `Reminder set: "${text}" in ${minutes} min`);
 
             setTimeout(() => {
                 const msg = `Reminder, sir: ${text}`;
-                addMessage('jarvis', msg);
+                addMessage('sonic', msg);
                 speak(msg);
                 playAlarm();
                 if (Notification.permission === 'granted') {
-                    new Notification('Jarvis Reminder', { body: text });
+                    new Notification('Sonic Reminder', { body: text });
                 }
             }, minutes * 60 * 1000);
         }
@@ -798,7 +798,7 @@
 
         // ── Always-On Sleep Mode ──
         // Screen goes black after 15s idle. Mic keeps listening.
-        // Wakes on: tap, "Hey Jarvis", or when Jarvis speaks.
+        // Wakes on: tap, "Hey Sonic", or when Sonic speaks.
         const sleepOverlay = document.getElementById('sleepOverlay');
         const SLEEP_DELAY = 15000; // 15 seconds
         let sleepTimer = null;
@@ -827,7 +827,7 @@
         sleepOverlay.addEventListener('click', wakeDisplay);
         sleepOverlay.addEventListener('touchstart', wakeDisplay);
 
-        // Wake when Jarvis speaks or processes
+        // Wake when Sonic speaks or processes
         const origSetState = setState;
         setState = function(s) {
             origSetState(s);

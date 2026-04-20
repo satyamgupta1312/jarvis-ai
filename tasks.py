@@ -1,4 +1,4 @@
-"""Jarvis Task Parser - Extracts all command tags from AI responses."""
+"""Sonic Task Parser - Extracts all command tags from AI responses."""
 
 import re
 import datetime

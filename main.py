@@ -1,11 +1,11 @@
 """
 ╔══════════════════════════════════════════════╗
-║          J.A.R.V.I.S  AI  ASSISTANT          ║
-║     Just A Rather Very Intelligent System     ║
+║          S.O.N.I.C  AI  ASSISTANT          ║
+║     Smart Omni-Network Intelligence Core     ║
 ╚══════════════════════════════════════════════╝
 
 Cloud-hosted AI assistant.
-Open the URL on your phone → say "Hey Jarvis" → talk.
+Open the URL on your phone → say "Hey Sonic" → talk.
 
 Usage:
     python main.py
@@ -21,11 +21,11 @@ def main():
         sys.exit(1)
 
     print("╔══════════════════════════════════════════════╗")
-    print("║          J.A.R.V.I.S  AI  ASSISTANT          ║")
+    print("║          S.O.N.I.C  AI  ASSISTANT          ║")
     print("╚══════════════════════════════════════════════╝")
     print(f"\n  Server: http://0.0.0.0:{SERVER_PORT}")
     print(f"  Open this URL on your phone (same WiFi)")
-    print(f"  Then just say: 'Hey Jarvis'\n")
+    print(f"  Then just say: 'Hey Sonic'\n")
 
     uvicorn.run(
         "server:app",

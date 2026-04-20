@@ -206,7 +206,7 @@ def deploy_request(request_id: str) -> dict:
 
 
 # ══════════════════════════════════════
-# Quick Actions (Jarvis-friendly)
+# Quick Actions (Sonic-friendly)
 # ══════════════════════════════════════
 
 def quick_create_spr(title: str, product_codes: str) -> dict:

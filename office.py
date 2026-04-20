@@ -1,4 +1,4 @@
-"""Jarvis Office Module - Slack integration + Project knowledge"""
+"""Sonic Office Module - Slack integration + Project knowledge"""
 
 import json
 import urllib.request

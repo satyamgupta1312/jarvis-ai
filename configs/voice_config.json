@@ -1,5 +1,5 @@
 {
-    "wake_words": ["jarvis", "jarves", "javis", "jervis", "jarwis", "service"],
+    "wake_words": ["sonic", "sonik", "hey sonic"],
 
     "interrupt_words": ["ruko", "ruk", "bas", "stop", "wait", "hold on", "ek minute", "sun", "chup"],
 

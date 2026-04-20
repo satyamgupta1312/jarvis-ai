@@ -1,7 +1,7 @@
 # Optimus Integration
 
 ## Overview
-Jarvis creates homepage widgets on ApnaMart app via Optimus API.
+Sonic creates homepage widgets on ApnaMart app via Optimus API.
 Replaces manual Maker (Manoj) workflow.
 
 ## Credentials

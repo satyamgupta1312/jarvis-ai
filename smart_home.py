@@ -1,4 +1,4 @@
-"""Jarvis Smart Home Controller - Tuya/SmartLife device control"""
+"""Sonic Smart Home Controller - Tuya/SmartLife device control"""
 
 import json
 import os
