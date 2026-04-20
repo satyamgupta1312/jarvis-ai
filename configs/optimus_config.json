@@ -1,0 +1,52 @@
+{
+    "api_base": "https://optimus-app-hazel.vercel.app/api/local",
+    "backend_base": "https://samaan.apnamart.in",
+    "uat_base": "https://smapi-cu.apnamart.in",
+
+    "credentials": {
+        "username": "Automation",
+        "password": "Qwerty@123"
+    },
+
+    "default_env": "PROD",
+
+    "widget_types": {
+        "product_rail": {
+            "variants": {
+                "single_row": {"rows": 1, "optimized": false, "multimedia": false},
+                "single_row_v2": {"rows": 1, "optimized": true, "multimedia": false},
+                "double_row": {"rows": 2, "optimized": false, "multimedia": false},
+                "double_row_v2": {"rows": 2, "optimized": true, "multimedia": false},
+                "multimedia_spr": {"rows": 1, "optimized": false, "multimedia": true},
+                "multimedia_spr_v2": {"rows": 1, "optimized": true, "multimedia": true}
+            },
+            "slug_suffix": "_spr",
+            "required_fields": ["slug", "title", "stateProducts"]
+        },
+        "collection_banner": {
+            "modes": ["scroll", "stick"],
+            "slug_suffix_scroll": "_cl_w_hp",
+            "slug_suffix_stick": "_cm_hp",
+            "required_fields": ["slug", "title", "displayMode", "items"]
+        },
+        "masthead": {
+            "variants": ["primary", "secondary"],
+            "slug_suffix_primary": "_pm_hp",
+            "slug_suffix_secondary": "_sm_hp",
+            "required_fields": ["slug", "variant"]
+        }
+    },
+
+    "states": {
+        "global": "All states (required)",
+        "jh": "Jharkhand",
+        "cg": "Chhattisgarh",
+        "wb": "West Bengal",
+        "patna": "Patna (city)"
+    },
+
+    "workflow": {
+        "statuses": ["DRAFT", "PENDING", "APPROVED", "REJECTED", "DEPLOYED"],
+        "super_admin_auto_approve": true
+    }
+}

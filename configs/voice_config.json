@@ -1,0 +1,60 @@
+{
+    "wake_words": ["jarvis", "jarves", "javis", "jervis", "jarwis", "service"],
+
+    "interrupt_words": ["ruko", "ruk", "bas", "stop", "wait", "hold on", "ek minute", "sun", "chup"],
+
+    "mute_words": ["mute", "chup", "so jao", "go to sleep", "meeting hai", "band karo sunna"],
+    "unmute_words": ["wake up", "unmute", "jago", "sun", "wapas aao", "start listening"],
+
+    "goodbye_words": ["thank you", "thanks", "goodbye", "bye", "that's all", "stop", "go to sleep", "never mind", "bas"],
+
+    "mode_switch": {
+        "office": ["switch to office", "office mode", "office switch", "office karo", "office me switch"],
+        "home": ["switch to home", "home mode", "home switch", "home karo", "normal mode"]
+    },
+
+    "tts": {
+        "macbook": {
+            "engine": "say",
+            "voice": "Daniel",
+            "rate": 190,
+            "alternatives": ["Aman", "Samantha", "Alex"]
+        },
+        "web": {
+            "engine": "Web Speech API",
+            "pitch": 0.8,
+            "rate": 0.95,
+            "preferred_voices": [
+                "Google UK English Male",
+                "Daniel",
+                "Google US English",
+                "Microsoft David"
+            ]
+        }
+    },
+
+    "stt": {
+        "engine": "Google Speech-to-Text",
+        "language": "en-US",
+        "energy_threshold": 300,
+        "dynamic_energy": true,
+        "calibration_duration": 2,
+        "listen_timeout_standby": null,
+        "listen_timeout_command": 5,
+        "listen_timeout_conversation": 10,
+        "phrase_time_limit": 15
+    },
+
+    "emotions": {
+        "happy": ["amazing", "bahut accha", "maza aa gaya", "great", "awesome"],
+        "angry": ["bakwas", "kaam nahi", "chutiya", "stupid", "useless"],
+        "sad": ["bore", "thak gaya", "sad", "tired", "alone"],
+        "stressed": ["bahut kaam", "deadline", "pressure", "tension"],
+        "casual": ["yaar", "bhai", "dude", "chill"],
+        "serious": ["report", "urgent", "important", "priority"],
+        "hurry": ["jaldi", "quick", "fast", "abhi", "now"]
+    },
+
+    "conversation_timeout_ms": 10000,
+    "sleep_delay_ms": 15000
+}

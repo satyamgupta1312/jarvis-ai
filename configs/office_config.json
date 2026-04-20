@@ -1,0 +1,90 @@
+{
+    "slack": {
+        "workspace": "apna-mart",
+        "channels": {
+            "product_automation": "C09T03GLXAL",
+            "_note": "Add more channel IDs here as needed"
+        },
+        "bot_scopes": [
+            "channels:history",
+            "channels:read",
+            "chat:write",
+            "search:read",
+            "users:read"
+        ]
+    },
+
+    "projects": [
+        {
+            "id": "optimus",
+            "name": "Optimus (Homepage CMS)",
+            "status": "Live",
+            "path": "/Users/satyam/Desktop/code/optimus"
+        },
+        {
+            "id": "price_benchmark",
+            "name": "SAM (Price Benchmark)",
+            "status": "Running daily",
+            "path": "/Users/satyam/Desktop/code/Price benchmark"
+        },
+        {
+            "id": "manufacture",
+            "name": "Manufacturer Database",
+            "status": "Complete",
+            "path": "/Users/satyam/Desktop/code/manufacture"
+        },
+        {
+            "id": "image_verification",
+            "name": "Damaged Product Image Verification",
+            "status": "Script ready",
+            "path": "/Users/satyam/Desktop/code/rohit jain image verification"
+        },
+        {
+            "id": "istre3",
+            "name": "istrE3 (Laundry Platform)",
+            "status": "Production-ready",
+            "path": "/Users/satyam/Desktop/code/istrE3"
+        },
+        {
+            "id": "admin_dashboard",
+            "name": "istrE3 Admin Dashboard",
+            "status": "Partial",
+            "path": "/Users/satyam/Desktop/code/admin-dashboard"
+        },
+        {
+            "id": "subscription",
+            "name": "Milk Subscription Engine",
+            "status": "Functional",
+            "path": "/Users/satyam/Desktop/code/subscription model"
+        },
+        {
+            "id": "daily_milk",
+            "name": "Daily Milk Delights (UI)",
+            "status": "UI complete",
+            "path": "/Users/satyam/Desktop/code/daily-milk-delights-main"
+        },
+        {
+            "id": "ai_photos",
+            "name": "AI Photo Studio",
+            "status": "Working",
+            "path": "/Users/satyam/Desktop/code/ai-photos"
+        }
+    ],
+
+    "pending_tasks": [
+        {"from": "Radhika Maheshwari", "task": "Store-to-App: 3-day follow-up message", "priority": "Medium"},
+        {"from": "Rohit Jain", "task": "Damaged product image analysis verification", "priority": "Low"},
+        {"from": "Ayush Umrao", "task": "Price Benchmark — host on Vercel", "priority": "Medium"},
+        {"from": "Diksha Chandna", "task": "AMS bulk update/delete automation", "priority": "Medium"},
+        {"from": "Sapna Meena", "task": "WhatsApp polls response automation", "priority": "Medium"},
+        {"from": "Sapna Meena", "task": "Daily metrics automation (23+1 stores)", "priority": "High"},
+        {"from": "Sapna Meena", "task": "Shop Now CTA button for community messages", "priority": "Low"}
+    ],
+
+    "user": {
+        "name": "Satyam Gupta",
+        "email": "satyam.gupta@apnamart.in",
+        "slack_id": "U04GAFD7N4E",
+        "role": "Product Automation Lead"
+    }
+}
